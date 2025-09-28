@@ -67,9 +67,9 @@
 
   // Productos: para agregar, copia un objeto y cambia id, name, img (sube la img a /images/)
   const products = [
-    {id:'p1', name:'Producto 1', price:'S/ 120', desc:'Descripción corta del producto 1', img:'images/producto1.jpg'},
-    {id:'p2', name:'Producto 2', price:'S/ 85',  desc:'Descripción corta del producto 2', img:'images/producto2.jpg'},
-    {id:'p3', name:'Producto 3', price:'S/ 45',  desc:'Descripción corta del producto 3', img:'images/producto3.jpg'}
+    {id:'p1', name:'Producto 1', desc:'Descripción corta del producto 1', img:'images/product1.jpg'},
+    {id:'p2', name:'Producto 2',  desc:'Descripción corta del producto 2', img:'images/product2.jpg'},
+    {id:'p3', name:'Producto 3',  desc:'Descripción corta del producto 3', img:'images/product3.jpg'}
   ];
 
   // carrito en memoria / localStorage
@@ -84,7 +84,6 @@
       card.innerHTML = `
         <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x300?text=Sin+imagen'">
         <h3>${p.name}</h3>
-        <div class="price">${p.price||''}</div>
         <p>${p.desc||''}</p>
         <div style="text-align:right"><button onclick="addToCart('${p.id}')">Agregar a cotización</button></div>
       `;
@@ -113,7 +112,7 @@
     list.innerHTML = cart.map(it=>`
       <div class="cart-item">
         <div>
-          <b>${it.name}</b><br/><small>${it.price||''}</small>
+          <b>${it.name}</b>
         </div>
         <div style="display:flex;align-items:center;gap:8px">
           <div class="qty-controls">
