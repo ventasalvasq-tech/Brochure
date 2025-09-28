@@ -1,223 +1,183 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Inversiones ALVASQ - Brochure</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo de Productos</title>
   <style>
-    :root{--accent:#25d366;--dark:#222}
-    body{font-family:Arial, sans-serif;margin:0;background:#f5f6f8;color:var(--dark)}
-    header{background:#fff;padding:14px 20px;box-shadow:0 1px 4px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:space-between}
-    header h1{margin:0;font-size:18px}
-    nav a{margin-left:15px;text-decoration:none;color:var(--dark);font-weight:600;cursor:pointer}
-    nav a.active{color:var(--accent)}
-    .container{max-width:1100px;margin:28px auto;padding:0 16px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
-    .card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 6px 18px rgba(0,0,0,.06);display:flex;flex-direction:column;align-items:stretch}
-    .card img{width:100%;height:auto;object-fit:contain;border-radius:8px;max-height:300px}
-    .card h3{margin:10px 0 6px;font-size:16px}
-    .card p{flex:1;margin:0 0 10px;font-size:14px;color:#555}
-    .card button{background:var(--accent);color:#fff;border:0;padding:8px;border-radius:8px;cursor:pointer}
-    .cart-btn{background:transparent;border:1px solid #eee;padding:6px 10px;border-radius:8px;cursor:pointer}
-    .cart-count{background:var(--accent);color:#fff;padding:3px 7px;border-radius:20px;font-size:13px;margin-left:8px}
-    /* Panel del carrito */
-    .cart-panel{position:fixed;right:20px;bottom:20px;background:#fff;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.12);width:320px;max-height:70vh;overflow:auto;padding:12px;display:none;z-index:1000}
-    .cart-panel h4{margin:0 0 8px}
-    .cart-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #eee}
-    .qty-controls button{margin:0 4px;padding:4px 8px;border-radius:6px;border:1px solid #ddd;background:#fafafa}
-    .cart-actions{display:flex;gap:8px;margin-top:10px}
-    .btn-outline{background:transparent;border:1px solid #ccc;padding:8px;border-radius:8px;cursor:pointer}
-    footer{max-width:1100px;margin:20px auto;padding:0 16px;color:#666}
-
-    /* Acordeón */
-    .accordion {
-      background-color: #eee;
-      color: #444;
-      cursor: pointer;
-      padding: 10px 15px;
-      width: 100%;
-      text-align: left;
-      border: none;
-      outline: none;
-      border-radius: 6px;
-      margin-bottom: 5px;
-      font-weight: bold;
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
     }
-    .accordion.active, .accordion:hover { background-color: var(--accent); color: white; }
-    .panel { padding: 0 15px; display: none; background-color: white; overflow: hidden; margin-bottom: 8px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    header {
+      background: #333;
+      color: #fff;
+      padding: 10px 20px;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+    nav ul li {
+      position: relative;
+    }
+    nav ul li a {
+      color: white;
+      padding: 10px 15px;
+      display: block;
+      text-decoration: none;
+    }
+    nav ul li:hover {
+      background: #444;
+    }
+    nav ul li ul {
+      display: none;
+      position: absolute;
+      top: 40px;
+      left: 0;
+      background: #333;
+      min-width: 180px;
+      z-index: 1000;
+    }
+    nav ul li:hover ul {
+      display: block;
+    }
+    nav ul li ul li {
+      width: 100%;
+    }
 
-    @media(max-width:520px){ .card img{max-height:200px} .cart-panel{width:92%;right:4%;bottom:14px} }
+    .container {
+      padding: 20px;
+    }
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .producto {
+      background: white;
+      border: 1px solid #ddd;
+      padding: 15px;
+      text-align: center;
+      border-radius: 10px;
+    }
+    .producto img {
+      width: 100%;
+      height: 250px;
+      object-fit: contain; /* mantiene proporción y muestra la imagen completa */
+      margin-bottom: 10px;
+    }
+    button {
+      background: #28a745;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #218838;
+    }
+    #carrito {
+      margin-top: 20px;
+      background: #fff;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>Inversiones ALVASQ</h1>
+    <h1>Mi Empresa</h1>
     <nav>
-      <a href="#" class="active" onclick="showTab('about')">Acerca de nosotros</a>
-      <a href="#" onclick="showTab('products')">Productos</a>
-      <button class="cart-btn" onclick="toggleCart()">Cotización <span id="cartCount" class="cart-count">0</span></button>
+      <ul>
+        <li><a href="#productos">Productos</a></li>
+        <li>
+          <a href="#quienes">Quienes Somos</a>
+          <ul>
+            <li><a href="#vision">Visión</a></li>
+            <li><a href="#mision">Misión</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+            <li><a href="#historia">Nuestra Historia</a></li>
+          </ul>
+        </li>
+      </ul>
     </nav>
   </header>
 
-  <main class="container">
-    <!-- Sección QUIÉNES SOMOS con acordeón -->
-    <section id="about">
-      <h2>Acerca de nosotros</h2>
-
-      <button class="accordion">Quiénes somos</button>
-      <div class="panel">
-        <p>Somos una empresa dedicada a ofrecer soluciones de calidad en [tu sector].</p>
-        <p>Nuestro compromiso es brindar productos confiables y un excelente servicio a cada cliente.</p>
+  <div class="container" id="productos">
+    <h2>Catálogo de Productos</h2>
+    <div class="productos">
+      <div class="producto">
+        <img src="Product1.jpg" alt="Producto 1">
+        <h3>Producto 1</h3>
+        <button onclick="agregarCarrito('Producto 1')">Agregar al carrito</button>
       </div>
-
-      <button class="accordion">Visión y Misión</button>
-      <div class="panel">
-        <p><b>Visión:</b> Ser líderes en el sector proporcionando productos de calidad y servicio confiable.</p>
-        <p><b>Misión:</b> Satisfacer las necesidades de nuestros clientes ofreciendo soluciones innovadoras y confiables.</p>
+      <div class="producto">
+        <img src="Product2.jpg" alt="Producto 2">
+        <h3>Producto 2</h3>
+        <button onclick="agregarCarrito('Producto 2')">Agregar al carrito</button>
       </div>
-
-      <button class="accordion">Información de contacto</button>
-      <div class="panel">
-        <p>Teléfono: +51 979771778</p>
-        <p>Email: ventas.alvasq@gmail.com</p>
-        <p>Dirección: Calle Ficticia 123, Ciudad, País</p>
-      </div>
-    </section>
-
-    <!-- Sección PRODUCTOS -->
-    <section id="products" class="grid" style="display:none"></section>
-  </main>
-
-  <!-- Panel del carrito -->
-  <div id="cartPanel" class="cart-panel" aria-hidden="true">
-    <h4>Carrito de cotización</h4>
-    <div id="cartItems"></div>
-    <div class="cart-actions">
-      <button onclick="sendWhatsApp()" style="flex:1;background:var(--accent);color:#fff;border:0;padding:10px;border-radius:8px;cursor:pointer">Enviar WhatsApp</button>
-      <button onclick="sendEmail()" class="btn-outline" style="flex:1">Enviar email</button>
+      <!-- Agrega más productos copiando este bloque -->
     </div>
-    <div style="margin-top:10px;text-align:center">
-      <button onclick="clearCart()" class="btn-outline">Vaciar</button>
+    <div id="carrito">
+      <h3>Carrito</h3>
+      <ul id="lista-carrito"></ul>
+      <button onclick="enviarCotizacion()">Enviar cotización</button>
     </div>
   </div>
- 
 
-<script>
-  // === CONFIGURA AQUÍ ===
-  const ownerPhone = '51979771778';
-  const ownerEmail = 'ventas.alvasq@gmail.com';
-  // ======================
+  <div class="container" id="quienes">
+    <h2>Quiénes Somos</h2>
+    <section id="vision">
+      <h3>Visión</h3>
+      <p>Nuestra visión es ser líderes en el sector...</p>
+    </section>
+    <section id="mision">
+      <h3>Misión</h3>
+      <p>Nuestra misión es ofrecer productos de calidad...</p>
+    </section>
+    <section id="contacto">
+      <h3>Contacto</h3>
+      <p>Email: contacto@miempresa.com</p>
+      <p>Tel: +51 999 999 999</p>
+    </section>
+    <section id="historia">
+      <h3>Nuestra Historia</h3>
+      <p>Somos una empresa con años de experiencia...</p>
+    </section>
+  </div>
 
-  const products = [
-    {id:'p1', name:'STRECH FILM', desc:'Disponible en todas las medidas: 6", 9", 12", 15", 18", 20"', img:'images/Product1.jpg'},
-    {id:'p2', name:'STRECH FILM PESOS PESADOS', desc:'Caja de 4 rollos, 20". Pesos de: 1 Kg, 2 Kg, 3Kg, 4 Kg', img:'images/Product2.jpg'},
-    {id:'p3', name:'STRECH FILM NEGRO', desc:'Disponible en todas las medidas: 6", 9", 12", 15", 18", 20"', img:'images/Product3.jpg'},
-    {id:'p4', name:'STRECH FILM DE COLORES', desc:'Colores: Azul, Verde, Rojo, Amarillo. Disponible en todas las medidas: 6", 9", 12", 15", 18", 20"', img:'images/Product4.jpg'}
-  ];
+  <script>
+    let carrito = [];
 
-  let cart = JSON.parse(localStorage.getItem('quoteCart') || '[]');
+    function agregarCarrito(producto) {
+      carrito.push(producto);
+      mostrarCarrito();
+    }
 
-  function showTab(tab){
-    document.querySelectorAll('main section').forEach(s=>s.style.display='none');
-    document.getElementById(tab).style.display = tab==='products' ? 'grid':'block';
-    document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
-    document.querySelector(`nav a[onclick="showTab('${tab}')"]`).classList.add('active');
-  }
+    function mostrarCarrito() {
+      const lista = document.getElementById("lista-carrito");
+      lista.innerHTML = "";
+      carrito.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        lista.appendChild(li);
+      });
+    }
 
-  function renderProducts(){
-    const root = document.getElementById('products');
-    root.innerHTML = '';
-    products.forEach(p=>{
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
-        <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x300?text=Sin+imagen'">
-        <h3>${p.name}</h3>
-        <p>${p.desc||''}</p>
-        <div style="text-align:right"><button onclick="addToCart('${p.id}')">Agregar a cotización</button></div>
-      `;
-      root.appendChild(card);
-    });
-  }
-
-  function saveCart(){ localStorage.setItem('quoteCart', JSON.stringify(cart)); }
-
-  function addToCart(id){
-    const p = products.find(x=>x.id===id);
-    if(!p) return;
-    const it = cart.find(x=>x.id===id);
-    if(it) it.qty++;
-    else cart.push({id:p.id, name:p.name, qty:1});
-    saveCart(); updateCartUI();
-  }
-
-  function updateCartUI(){
-    const count = cart.reduce((s,i)=>s+i.qty,0);
-    document.getElementById('cartCount').innerText = count;
-    const list = document.getElementById('cartItems');
-    if(!list) return;
-    if(cart.length===0){ list.innerHTML = '<p style="color:#666">No hay productos.</p>'; return; }
-    list.innerHTML = cart.map(it=>`
-      <div class="cart-item">
-        <div><b>${it.name}</b></div>
-        <div style="display:flex;align-items:center;gap:8px">
-          <div class="qty-controls">
-            <button onclick="changeQty('${it.id}', -1)">-</button>
-            <span>${it.qty}</span>
-            <button onclick="changeQty('${it.id}', 1)">+</button>
-          </div>
-          <button onclick="removeItem('${it.id}')" title="Eliminar">✖</button>
-        </div>
-      </div>
-    `).join('');
-  }
-
-  function changeQty(id, delta){
-    const it = cart.find(x=>x.id===id);
-    if(!it) return;
-    it.qty += delta;
-    if(it.qty <= 0) cart = cart.filter(x=>x.id!==id);
-    saveCart(); updateCartUI();
-  }
-
-  function removeItem(id){ cart = cart.filter(x=>x.id!==id); saveCart(); updateCartUI(); }
-  function clearCart(){ cart = []; saveCart(); updateCartUI(); }
-
-  function toggleCart(){
-    const panel = document.getElementById('cartPanel');
-    panel.style.display = panel.style.display==='block' ? 'none':'block';
-    panel.setAttribute('aria-hidden', panel.style.display==='block'?'false':'true');
-    updateCartUI();
-  }
-
-  function sendWhatsApp(){
-    if(cart.length===0){ alert('Carrito vacío.'); return; }
-    const lines = cart.map(i=>`- ${i.name} x${i.qty}`).join('\n');
-    const message = `Hola, me gustaría recibir una cotización:\n${lines}\n\nNombre:\nTeléfono:\nEmpresa:\nObservaciones:`;
-    const url = `https://wa.me/${ownerPhone}?text=${encodeURIComponent(message)}`;
-    window.open(url,'_blank');
-  }
-
-  function sendEmail(){
-    if(cart.length===0){ alert('Carrito vacío.'); return; }
-    const lines = cart.map(i=>`- ${i.name} x${i.qty}`).join('\n');
-    const body = `Hola, me gustaría recibir una cotización:\n${lines}\n\nNombre:\nTeléfono:\nEmpresa:\nObservaciones:`;
-    const mailto = `mailto:${ownerEmail}?subject=${encodeURIComponent('Solicitud de cotización')}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
-  }
-
-  // Acordeón
-  const acc = document.getElementsByClassName("accordion");
-  for (let i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function() {
-      this.classList.toggle("active");
-      const panel = this.nextElementSibling;
-      panel.style.display = (panel.style.display === "block") ? "none" : "block";
-    });
-  }
-
-  renderProducts();
-  updateCartUI();
-</script>
+    function enviarCotizacion() {
+      let mensaje = "Hola, quisiera una cotización de los siguientes productos: " + carrito.join(", ");
+      // Opción 1: WhatsApp
+      window.open("https://wa.me/51999999999?text=" + encodeURIComponent(mensaje));
+      // Opción 2: Correo
+      // window.location.href = "mailto:contacto@miempresa.com?subject=Cotización&body=" + encodeURIComponent(mensaje);
+    }
+  </script>
 </body>
 </html>
