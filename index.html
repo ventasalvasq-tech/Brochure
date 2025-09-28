@@ -335,6 +335,12 @@
           </div>
         </div>
       `).join('');
+      // 👉 Actualizar contadores al lado de "Agregar"
+      products.forEach(p=>{
+       const it = cart.find(x=>x.id===p.id);
+       const el = document.getElementById('count-'+p.id);
+       if(el) el.innerText = it ? it.qty : 0;
+     });
     }
     function changeQty(id, delta){
       const it = cart.find(x=>x.id===id);
