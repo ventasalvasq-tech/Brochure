@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mi Empresa - Catálogo</title>
+  <title>Inversiones ALVASQ - Brochure</title>
   <style>
     :root{--accent:#25d366;--dark:#222}
     body{font-family:Arial, sans-serif;margin:0;background:#f5f6f8;color:var(--dark)}
@@ -51,9 +51,9 @@
 </head>
 <body>
   <header>
-    <h1>Mi Empresa</h1>
+    <h1>Inversiones ALVASQ</h1>
     <nav>
-      <a href="#" class="active" onclick="showTab('about')">Quiénes somos</a>
+      <a href="#" class="active" onclick="showTab('about')">Acerca de nosotros</a>
       <a href="#" onclick="showTab('products')">Productos</a>
       <button class="cart-btn" onclick="toggleCart()">Cotización <span id="cartCount" class="cart-count">0</span></button>
     </nav>
@@ -62,7 +62,7 @@
   <main class="container">
     <!-- Sección QUIÉNES SOMOS con acordeón -->
     <section id="about">
-      <h2>Quiénes somos</h2>
+      <h2>Acerca de nosotros</h2>
 
       <button class="accordion">Quiénes somos</button>
       <div class="panel">
@@ -78,8 +78,8 @@
 
       <button class="accordion">Información de contacto</button>
       <div class="panel">
-        <p>Teléfono: +55 11 99999-0000</p>
-        <p>Email: contacto@empresa.com</p>
+        <p>Teléfono: +51 979771778</p>
+        <p>Email: ventas.alvasq@gmail.com</p>
         <p>Dirección: Calle Ficticia 123, Ciudad, País</p>
       </div>
     </section>
@@ -107,14 +107,15 @@
 
 <script>
   // === CONFIGURA AQUÍ ===
-  const ownerPhone = '5511999999999';
-  const ownerEmail = 'tu@correo.com';
+  const ownerPhone = '51979771778';
+  const ownerEmail = 'ventas.alvasq@gmail.com';
   // ======================
 
   const products = [
-    {id:'p1', name:'Producto 1', desc:'Descripción corta del producto 1', img:'images/Product1.jpg'},
-    {id:'p2', name:'Producto 2', desc:'Descripción corta del producto 2', img:'images/Product2.jpg'},
-    {id:'p3', name:'Producto 3', desc:'Descripción corta del producto 3', img:'images/Product3.jpg'}
+    {id:'p1', name:'STRECH FILM', desc:'Disponible en todas las medidas: 6", 9", 12", 15", 18", 20"', img:'images/Product1.jpg'},
+    {id:'p2', name:'STRECH FILM PESOS PESADOS', desc:'Caja de 4 rollos, 20". Pesos de: 1 Kg, 2 Kg, 3Kg, 4 Kg', img:'images/Product2.jpg'},
+    {id:'p3', name:'STRECH FILM NEGRO', desc:'Disponible en todas las medidas: 6", 9", 12", 15", 18", 20"', img:'images/Product3.jpg'},
+    {id:'p4', name:'STRECH FILM DE COLORES', desc:'Colores: Azul, Verde, Rojo, Amarillo. Disponible en todas las medidas: 6", 9", 12", 15", 18", 20"', img:'images/Product4.jpg'}
   ];
 
   let cart = JSON.parse(localStorage.getItem('quoteCart') || '[]');
