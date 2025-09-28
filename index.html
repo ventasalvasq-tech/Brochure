@@ -350,7 +350,18 @@
       saveCart(); updateCartUI();
     }
     function removeItem(id){ cart = cart.filter(x=>x.id!==id); saveCart(); updateCartUI(); }
-    function clearCart(){ cart = []; saveCart(); updateCartUI(); }
+    function clearCart(){
+      cart = [];
+      saveCart();
+      updateCartUI();
+
+      // 👉 Resetear contadores de los botones de productos
+      products.forEach(p=>{
+       const el = document.getElementById('count-'+p.id);
+       if(el) el.innerText = 0;
+      });
+}
+
     function toggleCart(){
       const panel = document.getElementById('cartPanel');
       panel.style.display = panel.style.display==='block' ? 'none':'block';
