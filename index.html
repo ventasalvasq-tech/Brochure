@@ -3,27 +3,27 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Catálogo - Cotizaciones</title>
+  <title>Mi Empresa - Catálogo</title>
   <style>
     :root{--accent:#25d366;--dark:#222}
-    body{font-family:Inter,system-ui,Arial; margin:0; background:#f5f6f8; color:var(--dark)}
+    body{font-family:Arial, sans-serif;margin:0;background:#f5f6f8;color:var(--dark)}
     header{background:#fff;padding:14px 20px;box-shadow:0 1px 4px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:space-between}
     header h1{margin:0;font-size:18px}
+    nav a{margin-left:15px;text-decoration:none;color:var(--dark);font-weight:600;cursor:pointer}
+    nav a.active{color:var(--accent)}
     .container{max-width:1100px;margin:28px auto;padding:0 16px}
     .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
     .card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 6px 18px rgba(0,0,0,.06);display:flex;flex-direction:column;align-items:stretch}
     .card img{width:100%;height:150px;object-fit:cover;border-radius:8px}
     .card h3{margin:10px 0 6px;font-size:16px}
-    .price{font-weight:700;color:var(--accent);margin-bottom:6px}
     .card p{flex:1;margin:0 0 10px;font-size:14px;color:#555}
     .card button{background:var(--accent);color:#fff;border:0;padding:8px;border-radius:8px;cursor:pointer}
     .cart-btn{background:transparent;border:1px solid #eee;padding:6px 10px;border-radius:8px;cursor:pointer}
     .cart-count{background:var(--accent);color:#fff;padding:3px 7px;border-radius:20px;font-size:13px;margin-left:8px}
-    /* Cart panel */
+    /* Panel del carrito */
     .cart-panel{position:fixed;right:20px;bottom:20px;background:#fff;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.12);width:320px;max-height:70vh;overflow:auto;padding:12px;display:none;z-index:1000}
     .cart-panel h4{margin:0 0 8px}
     .cart-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #eee}
-    .cart-item b{font-size:14px}
     .qty-controls button{margin:0 4px;padding:4px 8px;border-radius:6px;border:1px solid #ddd;background:#fafafa}
     .cart-actions{display:flex;gap:8px;margin-top:10px}
     .btn-outline{background:transparent;border:1px solid #ccc;padding:8px;border-radius:8px;cursor:pointer}
@@ -33,25 +33,42 @@
 </head>
 <body>
   <header>
-    <h1>Mi catálogo — Solicitar cotización</h1>
-    <div>
-      <button class="cart-btn" onclick="toggleCart()">Ver cotización <span id="cartCount" class="cart-count">0</span></button>
-    </div>
+    <h1>Mi Empresa</h1>
+    <nav>
+      <a href="#" class="active" onclick="showTab('about')">Quiénes somos</a>
+      <a href="#" onclick="showTab('products')">Productos</a>
+      <button class="cart-btn" onclick="toggleCart()">Cotización <span id="cartCount" class="cart-count">0</span></button>
+    </nav>
   </header>
 
   <main class="container">
-    <section id="products" class="grid"></section>
+    <!-- Sección QUIÉNES SOMOS -->
+    <section id="about">
+      <h2>Quiénes somos</h2>
+      <p>
+        Somos una empresa dedicada a ofrecer soluciones de calidad en [tu sector].
+        Nuestro compromiso es brindar productos confiables y un excelente servicio a cada cliente.
+      </p>
+      <p>
+        Contamos con años de experiencia en el mercado y un equipo altamente capacitado.
+        Nuestro objetivo es generar confianza y relaciones duraderas con nuestros clientes.
+      </p>
+    </section>
+
+    <!-- Sección PRODUCTOS -->
+    <section id="products" class="grid" style="display:none"></section>
   </main>
 
+  <!-- Panel del carrito -->
   <div id="cartPanel" class="cart-panel" aria-hidden="true">
     <h4>Carrito de cotización</h4>
     <div id="cartItems"></div>
     <div class="cart-actions">
-      <button onclick="sendWhatsApp()" style="flex:1;background:var(--accent);color:#fff;border:0;padding:10px;border-radius:8px;cursor:pointer">Enviar por WhatsApp</button>
-      <button onclick="sendEmail()" class="btn-outline" style="flex:1">Enviar por email</button>
+      <button onclick="sendWhatsApp()" style="flex:1;background:var(--accent);color:#fff;border:0;padding:10px;border-radius:8px;cursor:pointer">Enviar WhatsApp</button>
+      <button onclick="sendEmail()" class="btn-outline" style="flex:1">Enviar email</button>
     </div>
     <div style="margin-top:10px;text-align:center">
-      <button onclick="clearCart()" class="btn-outline">Vaciar cotización</button>
+      <button onclick="clearCart()" class="btn-outline">Vaciar</button>
     </div>
   </div>
 
@@ -60,20 +77,26 @@
   </footer>
 
 <script>
-  // === CONFIGURA AQUÍ tus datos ===
-  const ownerPhone = '5511999999999'; // reemplaza por tu número con código de país, sin +, sin guiones. Ej: Brasil +55 11 99999 0000 -> 5511999990000
-  const ownerEmail = 'tu@correo.com'; // reemplaza por tu email
-  // ================================
+  // === CONFIGURA AQUÍ ===
+  const ownerPhone = '5511999999999'; // tu número con código país, ej: Brasil +55 11 99999-0000 -> 5511999990000
+  const ownerEmail = 'tu@correo.com'; // tu email
+  // ======================
 
-  // Productos: para agregar, copia un objeto y cambia id, name, img (sube la img a /images/)
+  // Productos (sin precio)
   const products = [
     {id:'p1', name:'Producto 1', desc:'Descripción corta del producto 1', img:'images/Product1.jpg'},
-    {id:'p2', name:'Producto 2',  desc:'Descripción corta del producto 2', img:'images/Product2.jpg'},
-    {id:'p3', name:'Producto 3',  desc:'Descripción corta del producto 3', img:'images/Product3.jpg'}
+    {id:'p2', name:'Producto 2', desc:'Descripción corta del producto 2', img:'images/Product2.jpg'},
+    {id:'p3', name:'Producto 3', desc:'Descripción corta del producto 3', img:'images/Product3.jpg'}
   ];
 
-  // carrito en memoria / localStorage
   let cart = JSON.parse(localStorage.getItem('quoteCart') || '[]');
+
+  function showTab(tab){
+    document.querySelectorAll('main section').forEach(s=>s.style.display='none');
+    document.getElementById(tab).style.display = tab==='products' ? 'grid' : 'block';
+    document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
+    document.querySelector(`nav a[onclick="showTab('${tab}')"]`).classList.add('active');
+  }
 
   function renderProducts(){
     const root = document.getElementById('products');
@@ -98,7 +121,7 @@
     if(!p) return;
     const it = cart.find(x=>x.id===id);
     if(it) it.qty++;
-    else cart.push({id:p.id, name:p.name, qty:1, price:p.price});
+    else cart.push({id:p.id, name:p.name, qty:1});
     saveCart();
     updateCartUI();
   }
@@ -108,12 +131,10 @@
     document.getElementById('cartCount').innerText = count;
     const list = document.getElementById('cartItems');
     if(!list) return;
-    if(cart.length===0){ list.innerHTML = '<p style="color:#666">No hay productos en la cotización.</p>'; return; }
+    if(cart.length===0){ list.innerHTML = '<p style="color:#666">No hay productos.</p>'; return; }
     list.innerHTML = cart.map(it=>`
       <div class="cart-item">
-        <div>
-          <b>${it.name}</b>
-        </div>
+        <div><b>${it.name}</b></div>
         <div style="display:flex;align-items:center;gap:8px">
           <div class="qty-controls">
             <button onclick="changeQty('${it.id}', -1)">-</button>
@@ -135,17 +156,17 @@
   }
 
   function removeItem(id){ cart = cart.filter(x=>x.id!==id); saveCart(); updateCartUI(); }
-
   function clearCart(){ cart = []; saveCart(); updateCartUI(); }
 
   function toggleCart(){
     const panel = document.getElementById('cartPanel');
-    if(panel.style.display === 'block'){ panel.style.display = 'none'; panel.setAttribute('aria-hidden','true'); }
-    else { panel.style.display = 'block'; panel.setAttribute('aria-hidden','false'); updateCartUI(); }
+    panel.style.display = panel.style.display==='block' ? 'none':'block';
+    panel.setAttribute('aria-hidden', panel.style.display==='block'?'false':'true');
+    updateCartUI();
   }
 
   function sendWhatsApp(){
-    if(cart.length===0){ alert('El carrito está vacío. Agrega productos antes de enviar.'); return; }
+    if(cart.length===0){ alert('Carrito vacío.'); return; }
     const lines = cart.map(i=>`- ${i.name} x${i.qty}`).join('\n');
     const message = `Hola, me gustaría recibir una cotización:\n${lines}\n\nNombre:\nTeléfono:\nEmpresa:\nObservaciones:`;
     const url = `https://wa.me/${ownerPhone}?text=${encodeURIComponent(message)}`;
@@ -153,14 +174,13 @@
   }
 
   function sendEmail(){
-    if(cart.length===0){ alert('El carrito está vacío. Agrega productos antes de enviar.'); return; }
+    if(cart.length===0){ alert('Carrito vacío.'); return; }
     const lines = cart.map(i=>`- ${i.name} x${i.qty}`).join('\n');
     const body = `Hola, me gustaría recibir una cotización:\n${lines}\n\nNombre:\nTeléfono:\nEmpresa:\nObservaciones:`;
     const mailto = `mailto:${ownerEmail}?subject=${encodeURIComponent('Solicitud de cotización')}&body=${encodeURIComponent(body)}`;
     window.location.href = mailto;
   }
 
-  // inicializa
   renderProducts();
   updateCartUI();
 </script>
