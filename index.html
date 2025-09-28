@@ -183,4 +183,43 @@
   }
 
   function removeItem(id){ cart = cart.filter(x=>x.id!==id); saveCart(); updateCartUI(); }
-  function clearCart(){ cart = []; saveCart(); updateCartUI
+  function clearCart(){ cart = []; saveCart(); updateCartUI(); }
+
+  function toggleCart(){
+    const panel = document.getElementById('cartPanel');
+    panel.style.display = panel.style.display==='block' ? 'none':'block';
+    panel.setAttribute('aria-hidden', panel.style.display==='block'?'false':'true');
+    updateCartUI();
+  }
+
+  function sendWhatsApp(){
+    if(cart.length===0){ alert('Carrito vacío.'); return; }
+    const lines = cart.map(i=>`- ${i.name} x${i.qty}`).join('\n');
+    const message = `Hola, me gustaría recibir una cotización:\n${lines}\n\nNombre:\nTeléfono:\nEmpresa:\nObservaciones:`;
+    const url = `https://wa.me/${ownerPhone}?text=${encodeURIComponent(message)}`;
+    window.open(url,'_blank');
+  }
+
+  function sendEmail(){
+    if(cart.length===0){ alert('Carrito vacío.'); return; }
+    const lines = cart.map(i=>`- ${i.name} x${i.qty}`).join('\n');
+    const body = `Hola, me gustaría recibir una cotización:\n${lines}\n\nNombre:\nTeléfono:\nEmpresa:\nObservaciones:`;
+    const mailto = `mailto:${ownerEmail}?subject=${encodeURIComponent('Solicitud de cotización')}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+  }
+
+  // Acordeón
+  const acc = document.getElementsByClassName("accordion");
+  for (let i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      const panel = this.nextElementSibling;
+      panel.style.display = (panel.style.display === "block") ? "none" : "block";
+    });
+  }
+
+  renderProducts();
+  updateCartUI();
+</script>
+</body>
+</html>
