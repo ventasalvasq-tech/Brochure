@@ -201,55 +201,49 @@
 
     /* --- NUEVO ESTILO QUIÉNES SOMOS --- */
     .quienes-contenido {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    margin-top: 20px;
-  }
-  
-  .quienes-contenido img {
-    width: 40%;
-    max-width: 350px;
-    border-radius: 10px;
-    object-fit: cover;
-  }
-  
-  .quienes-texto {
-    flex: 1;
-  }
-  
-  .quienes-texto h3 {
-    font-size: 28px;   /* título grande */
-    margin-bottom: 10px;
-    color: var(--dark);
-  }
-  
-  .quienes-texto p {
-    font-size: 16px;
-    line-height: 1.6;
-    color: #555;
-  }
-  
-  /* Responsivo */
-  @media (max-width: 768px) {
-    .quienes-contenido {
-      flex-direction: column;
-      text-align: center;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      margin-top: 20px;
     }
     .quienes-contenido img {
-      width: 100%;
+      width: 40%;
+      max-width: 350px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+    .quienes-texto {
+      flex: 1;
     }
     .quienes-texto h3 {
-      font-size: 24px;
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: var(--dark);
     }
-  }
-
+    .quienes-texto p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #555;
+    }
+    /* Responsivo */
+    @media (max-width: 768px) {
+      .quienes-contenido {
+        flex-direction: column;
+        text-align: center;
+      }
+      .quienes-contenido img {
+        width: 100%;
+      }
+      .quienes-texto h3 {
+        font-size: 24px;
+      }
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="logo-area">
-      <img src="images/logo.png" alt="Logo"> <!-- tu logo aquí -->
+      <img src="images/logo.png" alt="Logo">
       <h1>Inversiones ALVASQ</h1>
     </div>
     <nav>
@@ -275,31 +269,36 @@
   </header>
 
   <main class="container">
-    <!-- Sección QUIÉNES SOMOS -->
+    <!-- Sección ACERCA DE NOSOTROS -->
     <section id="about">
+      <!-- Quiénes somos -->
       <div id="quienes">
-      <div class="quienes-contenido">
-        <!-- Imagen a la izquierda -->
-        <img src="images/ALVASQ.png" alt="Nuestra empresa">
-    
-        <!-- Texto a la derecha -->
-        <div class="quienes-texto">
-          <h3>Quiénes somos</h3>
-          <p>
-            Somos una empresa dedicada a ofrecer soluciones de calidad en nuestro sector. 
-            Nos caracterizamos por la innovación, compromiso con nuestros clientes y un 
-            enfoque en la mejora continua de nuestros procesos.
-          </p>
+        <div class="quienes-contenido">
+          <img src="images/ALVASQ.png" alt="Nuestra empresa">
+          <div class="quienes-texto">
+            <h3>Quiénes somos</h3>
+            <p>
+              Somos una empresa dedicada a ofrecer soluciones de calidad en nuestro sector. 
+              Nos caracterizamos por la innovación, compromiso con nuestros clientes y un 
+              enfoque en la mejora continua de nuestros procesos.
+            </p>
+          </div>
         </div>
       </div>
+
+      <!-- Visión -->
       <div id="vision" style="display:none">
         <h3>Visión</h3>
         <p>Ser líderes en el sector proporcionando productos de calidad y servicio confiable.</p>
       </div>
+
+      <!-- Misión -->
       <div id="mision" style="display:none">
         <h3>Misión</h3>
         <p>Satisfacer las necesidades de nuestros clientes ofreciendo soluciones innovadoras y confiables.</p>
       </div>
+
+      <!-- Contacto -->
       <div id="contacto" style="display:none">
         <h3>Contacto</h3>
         <p>Teléfono: +51 979771778<br>Email: ventas.alvasq@gmail.com</p>
@@ -316,7 +315,6 @@
       <h4>Cotización</h4>
       <button onclick="toggleCart()" style="background:none;border:none;font-size:18px;cursor:pointer">✖</button>
     </div>
-
     <div id="cartItems"></div>
     <div class="cart-actions">
       <button onclick="sendWhatsApp()" style="flex:1;background:var(--accent);color:#fff;border:0;padding:10px;border-radius:8px;cursor:pointer">Enviar WhatsApp</button>
@@ -328,7 +326,7 @@
   </div>
 
   <script>
-    // === CONFIGURA AQUÍ ===
+    // === CONFIGURACIÓN ===
     const ownerPhone = '51979771778';
     const ownerEmail = 'ventas.alvasq@gmail.com';
     const products = [
@@ -381,13 +379,9 @@
       if(it) it.qty++;
       else cart.push({id:p.id, name:p.name, qty:1});
       saveCart(); updateCartUI();
-
-       const it2 = cart.find(x=>x.id===id);
-       document.getElementById('count-'+id).innerText = it2 ? it2.qty : 0;
-  
-       showMessage(`Se añadió "${p.name}" al carrito`);
+      const it2 = cart.find(x=>x.id===id);
+      document.getElementById('count-'+id).innerText = it2 ? it2.qty : 0;
     }
-    
     function updateCartUI(){
       const count = cart.reduce((s,i)=>s+i.qty,0);
       document.getElementById('cartCount').innerText = count;
@@ -408,10 +402,10 @@
         </div>
       `).join('');
       products.forEach(p=>{
-       const it = cart.find(x=>x.id===p.id);
-       const el = document.getElementById('count-'+p.id);
-       if(el) el.innerText = it ? it.qty : 0;
-     });
+        const it = cart.find(x=>x.id===p.id);
+        const el = document.getElementById('count-'+p.id);
+        if(el) el.innerText = it ? it.qty : 0;
+      });
     }
     function changeQty(id, delta){
       const it = cart.find(x=>x.id===id);
@@ -426,8 +420,8 @@
       saveCart();
       updateCartUI();
       products.forEach(p=>{
-       const el = document.getElementById('count-'+p.id);
-       if(el) el.innerText = 0;
+        const el = document.getElementById('count-'+p.id);
+        if(el) el.innerText = 0;
       });
     }
     function toggleCart(){
@@ -456,3 +450,4 @@
   </script>
 </body>
 </html>
+
