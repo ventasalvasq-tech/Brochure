@@ -60,7 +60,6 @@
       background:#f0f0f0;
       border-radius:6px;
     }
-    /* Submenú */
     nav ul li ul {
       position:absolute;
       top:100%;
@@ -84,7 +83,6 @@
       background:#f9f9f9;
     }
 
-    /* Botón carrito */
     .cart-btn {
       background:transparent;
       border:none;
@@ -154,7 +152,6 @@
       cursor:pointer;
     }
 
-    /* Panel carrito */
     .cart-panel {
       position:fixed;
       right:20px;
@@ -215,17 +212,27 @@
     .quienes-texto {
       flex: 1;
     }
-    .quienes-texto h3 {
-      font-size: 28px;
-      margin-bottom: 10px;
-      color: var(--dark);
+
+    /* Título principal en rojo */
+    .titulo-principal {
+      font-size: 36px;
+      color: red;
+      margin-bottom: 8px;
     }
+
+    /* Subtítulo en negro */
+    .subtitulo {
+      font-size: 20px;
+      color: #000;
+      margin-bottom: 15px;
+    }
+
     .quienes-texto p {
       font-size: 16px;
       line-height: 1.6;
       color: #555;
     }
-    /* Responsivo */
+
     @media (max-width: 768px) {
       .quienes-contenido {
         flex-direction: column;
@@ -234,8 +241,11 @@
       .quienes-contenido img {
         width: 100%;
       }
-      .quienes-texto h3 {
-        font-size: 24px;
+      .titulo-principal {
+        font-size: 28px;
+      }
+      .subtitulo {
+        font-size: 18px;
       }
     }
   </style>
@@ -276,7 +286,8 @@
         <div class="quienes-contenido">
           <img src="images/ALVASQ.png" alt="Nuestra empresa">
           <div class="quienes-texto">
-            <h3>INVERSIONES ALVASQ</h3>
+            <h1 class="titulo-principal">INVERSIONES ALVASQ</h1>
+            <h2 class="subtitulo">Empresa Peruana de Embalaje y ferretería</h2>
             <p>
               Somos una empresa dedicada a ofrecer soluciones de calidad en nuestro sector. 
               Nos caracterizamos por la innovación, compromiso con nuestros clientes y un 
@@ -326,7 +337,6 @@
   </div>
 
   <script>
-    // === CONFIGURACIÓN ===
     const ownerPhone = '51979771778';
     const ownerEmail = 'ventas.alvasq@gmail.com';
     const products = [
@@ -433,14 +443,14 @@
     function sendWhatsApp(){
       if(cart.length===0){ alert('Carrito vacío.'); return; }
       const lines = cart.map(i=>`- ${i.name} x${i.qty}`).join('\n');
-      const message = `Hola, me gustaría recibir una cotización:\n${lines}\n\nNombre:\nTeléfono:\nEmpresa:\nObservaciones:`;
+      const message = `Hola, me gustaría recibir una cotización:\n${lines}\n\nNombre:\nTeléfono:\nEmpresa:\nObservaciones:`;  
       const url = `https://wa.me/${ownerPhone}?text=${encodeURIComponent(message)}`;
       window.open(url,'_blank');
     }
     function sendEmail(){
       if(cart.length===0){ alert('Carrito vacío.'); return; }
       const lines = cart.map(i=>`- ${i.name} x${i.qty}`).join('\n');
-      const body = `Hola, me gustaría recibir una cotización:\n${lines}\n\nNombre:\nTeléfono:\nEmpresa:\nObservaciones:`;
+      const body = `Hola, me gustaría recibir una cotización:\n${lines}\n\nNombre:\nTeléfono:\nEmpresa:\nObservaciones:`;  
       const mailto = `mailto:${ownerEmail}?subject=${encodeURIComponent('Solicitud de cotización')}&body=${encodeURIComponent(body)}`;
       window.location.href = mailto;
     }
@@ -450,4 +460,3 @@
   </script>
 </body>
 </html>
-
