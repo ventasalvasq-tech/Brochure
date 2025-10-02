@@ -22,6 +22,7 @@
       display:flex;
       align-items:center;
       justify-content:space-between;
+      gap:20px;
     }
     .logo-area {
       display:flex;
@@ -42,6 +43,7 @@
       padding:0;
       display:flex;
       align-items:center;
+      gap:10px;
     }
     nav ul li {
       position:relative;
@@ -258,7 +260,7 @@
       text-align: left;
     }
 
-    /* --- Estilos para redes sociales e íconos de contacto --- */
+    /* --- Estilos para redes sociales e íconos --- */
     .social-icons {
       display: flex;
       gap: 15px;
@@ -272,6 +274,17 @@
     }
     .social-icons a img:hover {
       transform: scale(1.2);
+    }
+
+    /* Íconos dentro del header */
+    .header-icons {
+      display:flex;
+      gap:10px;
+      margin-left:20px;
+    }
+    .header-icons a img {
+      width:24px;
+      height:24px;
     }
   </style>
 </head>
@@ -301,6 +314,22 @@
         </li>
       </ul>
     </nav>
+
+    <!-- Redes sociales en el header -->
+    <div class="social-icons header-icons">
+      <a href="https://wa.me/51979771778" target="_blank" title="WhatsApp">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+      </a>
+      <a href="https://facebook.com/profile.php?id=61580226135978" target="_blank" title="Facebook">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook">
+      </a>
+      <a href="https://instagram.com/inv.alvasq" target="_blank" title="Instagram">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+      </a>
+      <a href="https://tiktok.com/@inversiones.alvas" target="_blank" title="TikTok">
+        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046120.png" alt="TikTok">
+      </a>
+    </div>
   </header>
 
   <main class="container">
