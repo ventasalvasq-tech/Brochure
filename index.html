@@ -252,12 +252,27 @@
 
     /* --- Estilos para títulos de Visión, Misión y Contacto --- */
     #about h3 {
-      font-size: 28px;   /* 👈 Tamaño más grande */
-      color: #222;       /* Puedes cambiar el color si quieres */
+      font-size: 28px;
+      color: #222;
       margin-bottom: 10px;
-      text-align: left;  /* O "center" si prefieres centrado */
+      text-align: left;
     }
 
+    /* --- Estilos para redes sociales e íconos de contacto --- */
+    .social-icons {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    .social-icons a img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      transition: transform 0.2s;
+    }
+    .social-icons a img:hover {
+      transform: scale(1.2);
+    }
   </style>
 </head>
 <body>
@@ -306,7 +321,6 @@
             </p> 
             <p>
               Comprometidos en volcar nuestra experiencia de más de 25 años en la gestión de almacenes te asesoramos para la compra del producto adecuado.
-
             </p>
           </div>
         </div>
@@ -327,7 +341,29 @@
       <!-- Contacto -->
       <div id="contacto" style="display:none">
         <h3>Contacto</h3>
-        <p>Teléfono: +51 979771778<br>Email: ventas.alvasq@gmail.com</p>
+        <p>
+          <img src="https://cdn-icons-png.flaticon.com/512/724/724664.png" alt="Teléfono" style="width:20px;vertical-align:middle;margin-right:6px;">
+          Teléfono: +51 979771778
+          <br>
+          <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" style="width:20px;vertical-align:middle;margin-right:6px;">
+          Email: ventas.alvasq@gmail.com
+        </p>
+
+        <h4>Síguenos en nuestras redes:</h4>
+        <div class="social-icons">
+          <a href="https://wa.me/51979771778" target="_blank" title="WhatsApp">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+          </a>
+          <a href="https://facebook.com/tu_pagina" target="_blank" title="Facebook">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook">
+          </a>
+          <a href="https://instagram.com/tu_usuario" target="_blank" title="Instagram">
+            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+          </a>
+          <a href="https://tiktok.com/@tu_usuario" target="_blank" title="TikTok">
+            <img src="https://cdn-icons-png.flaticon.com/512/3046/3046120.png" alt="TikTok">
+          </a>
+        </div>
       </div>
     </section>
 
@@ -426,52 +462,45 @@
           </div>
         </div>
       `).join('');
-      products.forEach(p=>{
-        const it = cart.find(x=>x.id===p.id);
-        const el = document.getElementById('count-'+p.id);
-        if(el) el.innerText = it ? it.qty : 0;
-      });
     }
-    function changeQty(id, delta){
+    function changeQty(id,delta){
       const it = cart.find(x=>x.id===id);
       if(!it) return;
-      it.qty += delta;
-      if(it.qty <= 0) cart = cart.filter(x=>x.id!==id);
+      it.qty+=delta;
+      if(it.qty<=0) cart = cart.filter(x=>x.id!==id);
       saveCart(); updateCartUI();
+      const it2 = cart.find(x=>x.id===id);
+      document.getElementById('count-'+id).innerText = it2 ? it2.qty : 0;
     }
-    function removeItem(id){ cart = cart.filter(x=>x.id!==id); saveCart(); updateCartUI(); }
-    function clearCart(){
-      cart = [];
-      saveCart();
-      updateCartUI();
-      products.forEach(p=>{
-        const el = document.getElementById('count-'+p.id);
-        if(el) el.innerText = 0;
-      });
+    function removeItem(id){
+      cart = cart.filter(x=>x.id!==id);
+      saveCart(); updateCartUI();
+      document.getElementById('count-'+id).innerText = 0;
     }
+    function clearCart(){ cart=[]; saveCart(); updateCartUI(); }
     function toggleCart(){
       const panel = document.getElementById('cartPanel');
       panel.style.display = panel.style.display==='block' ? 'none':'block';
-      panel.setAttribute('aria-hidden', panel.style.display==='block'?'false':'true');
-      updateCartUI();
     }
     function sendWhatsApp(){
-      if(cart.length===0){ alert('Carrito vacío.'); return; }
-      const lines = cart.map(i=>`- ${i.name} x${i.qty}`).join('\n');
-      const message = `Hola, me gustaría recibir una cotización:\n${lines}\n\nNombre:\nTeléfono:\nEmpresa:\nObservaciones:`;  
-      const url = `https://wa.me/${ownerPhone}?text=${encodeURIComponent(message)}`;
+      if(cart.length===0){ alert('Agrega productos.'); return; }
+      const text = 'Hola, quisiera cotizar:\n\n' +
+        cart.map(it=>`- ${it.name} x${it.qty}`).join('\n');
+      const url = `https://wa.me/${ownerPhone}?text=${encodeURIComponent(text)}`;
       window.open(url,'_blank');
     }
     function sendEmail(){
-      if(cart.length===0){ alert('Carrito vacío.'); return; }
-      const lines = cart.map(i=>`- ${i.name} x${i.qty}`).join('\n');
-      const body = `Hola, me gustaría recibir una cotización:\n${lines}\n\nNombre:\nTeléfono:\nEmpresa:\nObservaciones:`;  
-      const mailto = `mailto:${ownerEmail}?subject=${encodeURIComponent('Solicitud de cotización')}&body=${encodeURIComponent(body)}`;
-      window.location.href = mailto;
+      if(cart.length===0){ alert('Agrega productos.'); return; }
+      const subject = 'Solicitud de cotización';
+      const body = 'Hola, quisiera cotizar:%0D%0A%0D%0A' +
+        cart.map(it=>`- ${it.name} x${it.qty}`).join('%0D%0A');
+      const url = `mailto:${ownerEmail}?subject=${subject}&body=${body}`;
+      window.location.href = url;
     }
-
-    renderProducts();
-    updateCartUI();
+    document.addEventListener('DOMContentLoaded', ()=>{
+      renderProducts(); updateCartUI(); showTab('about'); showSub('quienes');
+    });
   </script>
 </body>
 </html>
+
