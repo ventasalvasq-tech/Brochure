@@ -506,7 +506,17 @@
       saveCart(); updateCartUI();
       document.getElementById('count-'+id).innerText = 0;
     }
-    function clearCart(){ cart=[]; saveCart(); updateCartUI(); }
+    function clearCart(){ 
+      cart = []; 
+      saveCart(); 
+      updateCartUI();
+    
+      // Reiniciar los contadores de todos los productos
+      products.forEach(p=>{
+        const span = document.getElementById('count-'+p.id);
+        if(span) span.innerText = 0;
+      });
+    }
     function toggleCart(){
       const panel = document.getElementById('cartPanel');
       panel.style.display = panel.style.display==='block' ? 'none':'block';
