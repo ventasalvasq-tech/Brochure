@@ -423,6 +423,7 @@
         placeholder="Buscar producto..." 
         style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;"
         onkeyup="showSuggestions()"
+        onkeydown="handleKey(event)"
       >
     
       <!-- SUGERENCIAS -->
@@ -590,6 +591,47 @@
       // también filtra en tiempo real abajo
       renderProducts(matches);
     }
+
+    let selectedIndex = -1;
+
+    function handleKey(e){
+      const items = document.querySelectorAll('#suggestions div');
+    
+      if(e.key === 'ArrowDown'){
+        selectedIndex++;
+        if(selectedIndex >= items.length) selectedIndex = 0;
+        updateSelection(items);
+      }
+    
+      else if(e.key === 'ArrowUp'){
+        selectedIndex--;
+        if(selectedIndex < 0) selectedIndex = items.length - 1;
+        updateSelection(items);
+      }
+    
+      else if(e.key === 'Enter'){
+        e.preventDefault();
+    
+        if(selectedIndex >= 0 && items[selectedIndex]){
+          items[selectedIndex].click();
+        } else {
+          // Si no seleccionó nada, filtra normal
+          const text = document.getElementById('searchInput').value.toLowerCase();
+          const filtered = products.filter(p => 
+            p.name.toLowerCase().includes(text)
+          );
+          renderProducts(filtered);
+          document.getElementById('suggestions').style.display = 'none';
+        }
+      }
+    }
+    
+    function updateSelection(items){
+      items.forEach((item, index) => {
+        item.style.background = index === selectedIndex ? '#e0e0e0' : '#fff';
+      });
+    }
+
     
     /* INICIO */
     document.addEventListener('DOMContentLoaded', () => {
