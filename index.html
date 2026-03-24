@@ -592,6 +592,8 @@
 
     function handleKey(e){
       const items = document.querySelectorAll('#suggestions div');
+      const box = document.getElementById('suggestions');
+      if(box.style.display === 'none') return;
     
       if(e.key === 'ArrowDown'){
         selectedIndex++;
