@@ -434,7 +434,6 @@
   
   <script>
     const ownerPhone = '51979771778';
-    const ownerEmail = 'ventas.alvasq@gmail.com';
     const products = [
       {id:'p1', name:'STRECH FILM', desc:'Medidas: 6", 9", 12", 15", 18", 20"', img:'images/Product1.jpg'},
       {id:'p2', name:'STRECH FILM PESOS PESADOS', desc:'Caja de 4 rollos, 20". Pesos: 1 Kg, 2 Kg, 3Kg, 4 Kg', img:'images/Product2.jpg'},
@@ -484,38 +483,62 @@
 
     function showTab(tab){
       document.querySelectorAll('main section').forEach(s=>s.style.display='none');
-      document.getElementById(tab).style.display = tab==='products' ? 'grid':'block';
-      document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
+
+      if(tab === 'products'){
+        document.getElementById(tab).style.display = 'block';
+      }else{
+        document.getElementById(tab).style.display = 'block';
+      }
     }
+    
     function showSub(id){
       document.querySelectorAll('#about > div').forEach(d=>d.style.display='none');
       document.getElementById(id).style.display='block';
     }
-    function renderProducts(){
-      const root = document.getElementById('products');
+    
+    function renderProducts(list){
+      const root = document.getElementById('productsGrid');
       root.innerHTML = '';
-      products.forEach(p=>{
+    
+      list.forEach(p=>{
         const card = document.createElement('div');
         card.className = 'card';
+    
         card.innerHTML = `
           <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x300?text=Sin+imagen'">
           <h3>${p.name}</h3>
-          <p>${p.desc||''}</p>
+          <p>${p.desc || ''}</p>
           <div style="text-align:right">
-           <button onclick="cotizarWhatsApp('${p.name}')">
-           Cotizar
-           </button>
+            <button onclick="cotizarWhatsApp('${p.name}')">Cotizar</button>
           </div>
         `;
+    
         root.appendChild(card);
       });
     }
-   function cotizarWhatsApp(nombreProducto){
-     const text = `Hola, estoy interesado en el producto: ${nombreProducto}`;
-     const url = `https://wa.me/${ownerPhone}?text=${encodeURIComponent(text)}`;
-     window.open(url, '_blank');
-     }
-   document.addEventListener('DOMContentLoaded', ()=>{ renderProducts(); showTab('about'); showSub('quienes');});
+    
+    function filterProducts(){
+      const text = document.getElementById('searchInput').value.toLowerCase();
+    
+      const filtered = products.filter(p => 
+        p.name.toLowerCase().includes(text)
+      );
+    
+      renderProducts(filtered);
+    }
+    
+    function cotizarWhatsApp(nombreProducto){
+      const text = `Hola, estoy interesado en el producto: ${nombreProducto}`;
+      const url = `https://wa.me/${ownerPhone}?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    }
+    
+    /* INICIO */
+    document.addEventListener('DOMContentLoaded', () => {
+      renderProducts(products);
+      showTab('about');
+      showSub('quienes');
+    });
   </script>
 </body>
 </html>
