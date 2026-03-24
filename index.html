@@ -482,92 +482,19 @@
           <h3>${p.name}</h3>
           <p>${p.desc||''}</p>
           <div style="text-align:right">
-           <button onclick="addToCart('${p.id}')">
-             Agregar <span id="count-${p.id}">0</span>
+           <button onclick="cotizarWhatsApp('${p.name}')">
+           Cotizar
            </button>
           </div>
         `;
         root.appendChild(card);
       });
     }
-    function saveCart(){ localStorage.setItem('quoteCart', JSON.stringify(cart)); }
-    function addToCart(id){
-      const p = products.find(x=>x.id===id);
-      if(!p) return;
-      const it = cart.find(x=>x.id===id);
-      if(it) it.qty++;
-      else cart.push({id:p.id, name:p.name, qty:1});
-      saveCart(); updateCartUI();
-      const it2 = cart.find(x=>x.id===id);
-      document.getElementById('count-'+id).innerText = it2 ? it2.qty : 0;
-    }
-    function updateCartUI(){
-      const count = cart.reduce((s,i)=>s+i.qty,0);
-      document.getElementById('cartCount').innerText = count;
-      const list = document.getElementById('cartItems');
-      if(!list) return;
-      if(cart.length===0){ list.innerHTML = '<p style="color:#666">No hay productos.</p>'; return; }
-      list.innerHTML = cart.map(it=>`
-        <div class="cart-item">
-          <div><b>${it.name}</b></div>
-          <div style="display:flex;align-items:center;gap:8px">
-            <div class="qty-controls">
-              <button onclick="changeQty('${it.id}', -1)">-</button>
-              <span>${it.qty}</span>
-              <button onclick="changeQty('${it.id}', 1)">+</button>
-            </div>
-            <button onclick="removeItem('${it.id}')" title="Eliminar">✖</button>
-          </div>
-        </div>
-      `).join('');
-    }
-    function changeQty(id,delta){
-      const it = cart.find(x=>x.id===id);
-      if(!it) return;
-      it.qty+=delta;
-      if(it.qty<=0) cart = cart.filter(x=>x.id!==id);
-      saveCart(); updateCartUI();
-      const it2 = cart.find(x=>x.id===id);
-      document.getElementById('count-'+id).innerText = it2 ? it2.qty : 0;
-    }
-    function removeItem(id){
-      cart = cart.filter(x=>x.id!==id);
-      saveCart(); updateCartUI();
-      document.getElementById('count-'+id).innerText = 0;
-    }
-    function clearCart(){ 
-      cart = []; 
-      saveCart(); 
-      updateCartUI();
-    
-      // Reiniciar los contadores de todos los productos
-      products.forEach(p=>{
-        const span = document.getElementById('count-'+p.id);
-        if(span) span.innerText = 0;
-      });
-    }
-    function toggleCart(){
-      const panel = document.getElementById('cartPanel');
-      panel.style.display = panel.style.display==='block' ? 'none':'block';
-    }
-    function sendWhatsApp(){
-      if(cart.length===0){ alert('Agrega productos.'); return; }
-      const text = 'Hola, quisiera cotizar:\n\n' +
-        cart.map(it=>`- ${it.name} x${it.qty}`).join('\n');
-      const url = `https://wa.me/${ownerPhone}?text=${encodeURIComponent(text)}`;
-      window.open(url,'_blank');
-    }
-    function sendEmail(){
-      if(cart.length===0){ alert('Agrega productos.'); return; }
-      const subject = 'Solicitud de cotización';
-      const body = 'Hola, quisiera cotizar:%0D%0A%0D%0A' +
-        cart.map(it=>`- ${it.name} x${it.qty}`).join('%0D%0A');
-      const url = `mailto:${ownerEmail}?subject=${subject}&body=${body}`;
-      window.location.href = url;
-    }
-    document.addEventListener('DOMContentLoaded', ()=>{
-      renderProducts(); updateCartUI(); showTab('about'); showSub('quienes');
-    });
+   function cotizarWhatsApp(nombreProducto){
+     const text = `Hola, estoy interesado en el producto: ${nombreProducto}`;
+     const url = `https://wa.me/${ownerPhone}?text=${encodeURIComponent(text)}`;
+     window.open(url, '_blank');
+     }
   </script>
 </body>
 </html>
