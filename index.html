@@ -415,7 +415,7 @@
     </section>
 
     <!-- Sección PRODUCTOS -->
-    <section id="products" style="display:none">
+    <section id="products" style="position:relative;">
         <!-- BUSCADOR -->
       <input 
         type="text" 
@@ -497,12 +497,7 @@
 
     function showTab(tab){
       document.querySelectorAll('main section').forEach(s=>s.style.display='none');
-
-      if(tab === 'products'){
-        document.getElementById(tab).style.display = 'block';
-      }else{
-        document.getElementById(tab).style.display = 'block';
-      }
+      document.getElementById(tab).style.display = 'block';
     }
     
     function showSub(id){
