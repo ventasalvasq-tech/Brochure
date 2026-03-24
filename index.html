@@ -635,6 +635,11 @@
       showTab('about');
       showSub('quienes');
     });
+    document.addEventListener('click', (e) => {
+      if(!document.getElementById('searchInput').contains(e.target)){
+        document.getElementById('suggestions').style.display = 'none';
+      }
+    });
   </script>
 </body>
 </html>
