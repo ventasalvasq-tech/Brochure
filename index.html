@@ -415,7 +415,20 @@
     </section>
 
     <!-- Sección PRODUCTOS -->
-    <section id="products" class="grid" style="display:none"></section>
+    <section id="products" style="display:none">
+        <!-- BUSCADOR -->
+      <input 
+        type="text" 
+        id="searchInput" 
+        placeholder="Buscar producto..." 
+        style="width:100%;padding:10px;margin-bottom:20px;border-radius:8px;border:1px solid #ccc;"
+        onkeyup="filterProducts()"
+      >
+    
+      <!-- GRID -->
+      <div class="grid" id="productsGrid"></div>
+    
+    </section>
   </main>
 
   
