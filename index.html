@@ -439,8 +439,15 @@
         display:none;
       "></div>
     
+      <!-- FILTRO POR CATEGORÍA -->
+      <div style="margin:10px 0;">
+        <select id="categoryFilter" onchange="filterAll()">
+          <option value="ALL">Todas las categorías</option>
+        </select>
+      </div>
+      
       <!-- GRID -->
-      <div class="grid" id="productsGrid"></div>
+      <div id="productsGrid"></div>
     
     </section>
   </main>
@@ -449,57 +456,57 @@
   <script>
     const ownerPhone = '51979771778';
     const products = [
-      {id:'p1', name:'STRECH FILM', desc:'Medidas: 6", 9", 12", 15", 18", 20"', img:'images/Product1.jpg'},
-      {id:'p2', name:'STRECH FILM PESOS PESADOS', desc:'Caja de 4 rollos, 20". Pesos: 1 Kg, 2 Kg, 3Kg, 4 Kg', img:'images/Product2.jpg'},
-      {id:'p3', name:'STRECH FILM NEGRO', desc:'Disponible en varias medidas.', img:'images/Product3.jpg'},
-      {id:'p4', name:'STRECH FILM DE COLORES', desc:'Colores: Azul, Verde, Rojo, Amarillo.', img:'images/Product4.jpg'},
-      {id:'p5', name:'CINTA DE EMBALAJE', desc:'60 YR, 100 YR, 200 YR, 400 YR, 500 YR, 600 YR', img:'images/Product5.jpg'},
-      {id:'p6', name:'CINTA FRAGIL', desc:'60 YR, 100 YR', img:'images/Product6.jpg'},
-      {id:'p7', name:'CINTA DE EMBALAJE DE COLORES', desc:'Ventas al por mayor y menor', img:'images/Product7.jpg'},
-      {id:'p8', name:'CINTA MASKING TAPE', desc:'15 YR, 30 YR, 40 YR', img:'images/Product8.jpg'},
-      {id:'p9', name:'ZUNCHOS DE PLASTICO 5/8', desc:'Pesos: 5 Kg, 8 Kg, 10Kg', img:'images/Product9.jpg'},
-      {id:'p10', name:'WINCHA REFORZADA', desc:'Medidas: 5m, 8m". Pesos: 1 Kg, 2 Kg, 3Kg, 4 Kg', img:'images/Product10.jpg'},
-      {id:'p11', name:'GRAPAS GALVANIZADAS', desc:'Tipo piña y liza', img:'images/Product11.jpg'},
-      {id:'p12', name:'ENZUNCHADORA', desc:'H-21 Tensionadora. Uso: Zuncho Plastico PP, kit 2 piezas', img:'images/Product12.jpg'},
-      {id:'p13', name:'PEGAMENTO TRIZ', desc:'Ventas al por mayor y menor.', img:'images/Product13.jpg'},
-      {id:'p14', name:'CANDADO COLOR BRONCE', desc:'50mm, 60mm. Por docena y cajon.', img:'images/Product14.jpg'},
-      {id:'p15', name:'CANDADO COLOR PLOMO', desc:'50mm, 60mm, 70mm. Por docena y cajon.', img:'images/Product15.jpg'},
-      {id:'p16', name:'SOLDIMIX', desc:'Ventas al por mayor y menor.', img:'images/Product16.jpg'},
-      {id:'p17', name:'PINTURA EN SPRAY C&A', desc:'Disponible en todos los colores. Ventas al por mayor y menor', img:'images/Product17.jpg'},
-      {id:'p18', name:'MALLA RASCHEL', desc:'50%, 65%, 80%, 90%, 95%', img:'images/Product18.jpg'},
-      {id:'p19', name:'DRIZA', desc:'Ventas al por mayor y menor.', img:'images/Product19.jpg'},
-      {id:'p20', name:'RAFIA PLANA', desc:'Ventas al por mayor y menor.', img:'images/Product20.jpg'},
-      {id:'p21', name:'RAFIA TRENZADA', desc:'Ventas al por mayor y menor.', img:'images/Product21.jpg'},
-      {id:'p22', name:'PAÑOS MICROFIBRA', desc:'Medida 40cm x 38cm. Ventas por caja y docena.', img:'images/Product22.jpg'},
-      {id:'p23', name:'TRAPEADOR MICROFIBRA', desc:'Caja por 18 unidades y caja por docena.', img:'images/Product23.jpg'},
-      {id:'p24', name:'CARTON CORRUGADO', desc:'Rollo por 25kg x110gr, Rollo por 50kgx110gr, Rollo carton grueso 50kgx220gr', img:'images/Product24.jpg'},
-      {id:'p25', name:'CINTA DELIMITADORA', desc:'Alta visibilidad, resistente a la intemperie, facil de instalar y remover.', img:'images/Product25.jpg'},
-      {id:'p26', name:'CINTA ANTIDESLIZANTE', desc:'Adhesivo de alta resistencia, durabilidad al uso y condiciones climaticas, disponible en varios colores.', img:'images/Product26.jpg'},
-      {id:'p27', name:'TRAPO COCIDO', desc:'Costal por 50kg, 100kg, paquete por 10kg. Contamos con trapos sueltos de colores.', img:'images/Product27.jpg'},
-      {id:'p28', name:'PLASTICO AZUL Y DOBLE CARA', desc:'Plastico 6 micras por 2 metros /80". Resistencia superior y respetuoso con el medio ambiente.', img:'images/Product28.jpg'},
-      {id:'p29', name:'CINTA DE SEÑALIZACION "PELIGRO"', desc:'Material: Polietileni o PVC resistente. Ancho: 3". Largo: 200m. Colores rojo y amarillo."', img:'images/Product29.jpg'},
-      {id:'p30', name:'CINTA REFLECTIVA', desc:'Alta reflexibilidad, autoadhesiva, resistencia al clima, flexible. Disponible en colores', img:'images/Product30.jpg'},
-      {id:'p31', name:'PAPEL CRAFT', desc:'Rollo por 5kg, 10kg, 15kg. Diferentes medidas en altura y gramaje.', img:'images/Product31.jpg'},
-      {id:'p32', name:'GUANTES ANTI CORTES', desc:'Por docena. Cajón de 120 unidades. Maxima proteccion anticorte. Colores en plomo y rojo.', img:'images/Product32.jpg'},
-      {id:'p33', name:'SACO PAYASO', desc:'Docena, 100 unidades, 1 millar.', img:'images/Product33.jpg'},
-      {id:'p34', name:'PLASTICO AZUL', desc:'Doble ancho: 1m para 2m, 1.5m para 3m, 2m para 4m.', img:'images/Product34.jpg'},
-      {id:'p35', name:'CINTA MASKING TAPE AZUL SHURTAPE', desc:'3/4", 1", 1 1/2", 2".', img:'images/Product35.jpg'},
-      {id:'p36', name:'CUTER', desc:'Docena y Cajón.', img:'images/Product36.jpg'},
-      {id:'p37', name:'CINTA ELECTRICA 3M', desc:'Paquete por 10 unidades y cajón.', img:'images/Product37.jpg'},
-      {id:'p38', name:'CINTA TEFLON', desc:'Paquete por 10 unidades y cajón. Colores rojo y azul.', img:'images/Product38.jpg'},
-      {id:'p39', name:'BOLSA DE BASURA 220 LITROS', desc:'Ideal para el manejo de residuos ligeros en espacios pequeños como oficinas, baños y cocinas.', img:'images/Product39.jpg'},
-      {id:'p40', name:'BOLSA DE BASURA ROJA', desc:'Alta densidad, diseñada especialmente para la recoleccion segura de residuos especiales o riesgo.', img:'images/Product40.jpg'},
-      {id:'p41', name:'BOLSA DE BASURA 240 LITROS', desc:'Ideal para el manejo de residuos ligeros en espacios pequeños como oficinas, baños y cocinas.', img:'images/Product41.jpg'},
-      {id:'p42', name:'BOLSA DE BASURA 75 LITROS', desc:'Ideal para el maenjo de domesticos, comerciales o industriales. Fabricada con materiales duaraderos que evitan roturas y filtraciones.', img:'images/Product42.jpg'},
-      {id:'p43', name:'BURBUPACK', desc:'Medida_ 0.5m, 1, 1.5m. Rollos de 80m y 100m.', img:'images/Product43.jpg'},
-      {id:'p44', name:'BOTAS DE SEGURIDAD', desc:'Punta de acero, dielectricos, botines de PVC y Caucho', img:'images/Product44.png'},
-      {id:'p45', name:'TAPON Y PROTECTOR DE OIDO', desc:'Tapones de oido con cordon, protector de oido tipo orejera', img:'images/Product45.png'},
-      {id:'p46', name:'CASCO DE SEGURIDAD', desc:'Tafiletes para casco', img:'images/Product46.png'},
-      {id:'p47', name:'ANTEOJOS DE SEGURIDAD', desc:'Luna clara, luna oscura y sobremedida', img:'images/Product47.png'},
-      {id:'p48', name:'RESPIRADORES', desc:'Respiradores de doble entrada y filtros de polvo y gas', img:'images/Product48.png'},
-      {id:'p49', name:'GUANTES', desc:'Guantes de anticorte y badana', img:'images/Product49.png'},
-      {id:'p50', name:'POLOS Y PANTALONES', desc:'Pantalones en drill, jean, denim. Polos manga larga y corta. Polos picket con logo de empresa', img:'images/Product50.png'},
-      {id:'p51', name:'CHALECOS, CASACAS, MANDIL', desc:'Chalecos en diferentes colores. Casacas y chompas. Casacas, pantalones y abrigos en PVC.', img:'images/Product51.png'}
+      {id:'p1', name:'STRECH FILM', category:'FILM', desc:'Medidas: 6", 9", 12", 15", 18", 20"', img:'images/Product1.jpg'},
+      {id:'p2', name:'STRECH FILM PESOS PESADOS', category:'FILM', desc:'Caja de 4 rollos, 20". Pesos: 1 Kg, 2 Kg, 3Kg, 4 Kg', img:'images/Product2.jpg'},
+      {id:'p3', name:'STRECH FILM NEGRO', category:'FILM', desc:'Disponible en varias medidas.', img:'images/Product3.jpg'},
+      {id:'p4', name:'STRECH FILM DE COLORES', category:'FILM', desc:'Colores: Azul, Verde, Rojo, Amarillo.', img:'images/Product4.jpg'},
+      {id:'p5', name:'CINTA DE EMBALAJE', category:'CINTA', desc:'60 YR, 100 YR, 200 YR, 400 YR, 500 YR, 600 YR', img:'images/Product5.jpg'},
+      {id:'p6', name:'CINTA FRAGIL', category:'CINTA', desc:'60 YR, 100 YR', img:'images/Product6.jpg'},
+      {id:'p7', name:'CINTA DE EMBALAJE DE COLORES', category:'CINTA', desc:'Ventas al por mayor y menor', img:'images/Product7.jpg'},
+      {id:'p8', name:'CINTA MASKING TAPE', category:'CINTA', desc:'15 YR, 30 YR, 40 YR', img:'images/Product8.jpg'},
+      {id:'p9', name:'ZUNCHOS DE PLASTICO 5/8', category:'OTROS', desc:'Pesos: 5 Kg, 8 Kg, 10Kg', img:'images/Product9.jpg'},
+      {id:'p10', name:'WINCHA REFORZADA', category:'HERRAMIENTAS', desc:'Medidas: 5m, 8m". Pesos: 1 Kg, 2 Kg, 3Kg, 4 Kg', img:'images/Product10.jpg'},
+      {id:'p11', name:'GRAPAS GALVANIZADAS', category:'OTROS', desc:'Tipo piña y liza', img:'images/Product11.jpg'},
+      {id:'p12', name:'ENZUNCHADORA', category:'HERRAMIENTAS', desc:'H-21 Tensionadora. Uso: Zuncho Plastico PP, kit 2 piezas', img:'images/Product12.jpg'},
+      {id:'p13', name:'PEGAMENTO TRIZ', category:'OTROS', desc:'Ventas al por mayor y menor.', img:'images/Product13.jpg'},
+      {id:'p14', name:'CANDADO COLOR BRONCE', category:'OTROS', desc:'50mm, 60mm. Por docena y cajon.', img:'images/Product14.jpg'},
+      {id:'p15', name:'CANDADO COLOR PLOMO', category:'OTROS', desc:'50mm, 60mm, 70mm. Por docena y cajon.', img:'images/Product15.jpg'},
+      {id:'p16', name:'SOLDIMIX', category:'OTROS', desc:'Ventas al por mayor y menor.', img:'images/Product16.jpg'},
+      {id:'p17', name:'PINTURA EN SPRAY C&A', category:'OTROS', desc:'Disponible en todos los colores. Ventas al por mayor y menor', img:'images/Product17.jpg'},
+      {id:'p18', name:'MALLA RASCHEL', category:'OTROS', desc:'50%, 65%, 80%, 90%, 95%', img:'images/Product18.jpg'},
+      {id:'p19', name:'DRIZA', category:'OTROS', desc:'Ventas al por mayor y menor.', img:'images/Product19.jpg'},
+      {id:'p20', name:'RAFIA PLANA', category:'OTROS', desc:'Ventas al por mayor y menor.', img:'images/Product20.jpg'},
+      {id:'p21', name:'RAFIA TRENZADA', category:'OTROS', desc:'Ventas al por mayor y menor.', img:'images/Product21.jpg'},
+      {id:'p22', name:'PAÑOS MICROFIBRA',category:'LIMPIEZA', desc:'Medida 40cm x 38cm. Ventas por caja y docena.', img:'images/Product22.jpg'},
+      {id:'p23', name:'TRAPEADOR MICROFIBRA', category:'LIMPIEZA', desc:'Caja por 18 unidades y caja por docena.', img:'images/Product23.jpg'},
+      {id:'p24', name:'CARTON CORRUGADO', category:'OTROS', desc:'Rollo por 25kg x110gr, Rollo por 50kgx110gr, Rollo carton grueso 50kgx220gr', img:'images/Product24.jpg'},
+      {id:'p25', name:'CINTA DELIMITADORA', category:'CINTA', desc:'Alta visibilidad, resistente a la intemperie, facil de instalar y remover.', img:'images/Product25.jpg'},
+      {id:'p26', name:'CINTA ANTIDESLIZANTE', category:'CINTA', desc:'Adhesivo de alta resistencia, durabilidad al uso y condiciones climaticas, disponible en varios colores.', img:'images/Product26.jpg'},
+      {id:'p27', name:'TRAPO COCIDO', category:'LIMPIEZA', desc:'Costal por 50kg, 100kg, paquete por 10kg. Contamos con trapos sueltos de colores.', img:'images/Product27.jpg'},
+      {id:'p28', name:'PLASTICO AZUL Y DOBLE CARA', category:'OTROS', desc:'Plastico 6 micras por 2 metros /80". Resistencia superior y respetuoso con el medio ambiente.', img:'images/Product28.jpg'},
+      {id:'p29', name:'CINTA DE SEÑALIZACION "PELIGRO"', category:'CINTA', desc:'Material: Polietileni o PVC resistente. Ancho: 3". Largo: 200m. Colores rojo y amarillo."', img:'images/Product29.jpg'},
+      {id:'p30', name:'CINTA REFLECTIVA', category:'CINTA', desc:'Alta reflexibilidad, autoadhesiva, resistencia al clima, flexible. Disponible en colores', img:'images/Product30.jpg'},
+      {id:'p31', name:'PAPEL CRAFT', category:'OTROS', desc:'Rollo por 5kg, 10kg, 15kg. Diferentes medidas en altura y gramaje.', img:'images/Product31.jpg'},
+      {id:'p32', name:'GUANTES ANTI CORTES', category:'EPP', desc:'Por docena. Cajón de 120 unidades. Maxima proteccion anticorte. Colores en plomo y rojo.', img:'images/Product32.jpg'},
+      {id:'p33', name:'SACO PAYASO', category:'OTROS', desc:'Docena, 100 unidades, 1 millar.', img:'images/Product33.jpg'},
+      {id:'p34', name:'PLASTICO AZUL', category:'OTROS', desc:'Doble ancho: 1m para 2m, 1.5m para 3m, 2m para 4m.', img:'images/Product34.jpg'},
+      {id:'p35', name:'CINTA MASKING TAPE AZUL SHURTAPE', category:'CINTA', desc:'3/4", 1", 1 1/2", 2".', img:'images/Product35.jpg'},
+      {id:'p36', name:'CUTER', category:'HERRAMIENTAS', desc:'Docena y Cajón.', img:'images/Product36.jpg'},
+      {id:'p37', name:'CINTA ELECTRICA 3M', category:'CINTA', desc:'Paquete por 10 unidades y cajón.', img:'images/Product37.jpg'},
+      {id:'p38', name:'CINTA TEFLON', category:'CINTA', desc:'Paquete por 10 unidades y cajón. Colores rojo y azul.', img:'images/Product38.jpg'},
+      {id:'p39', name:'BOLSA DE BASURA 220 LITROS', category:'OTROS', desc:'Ideal para el manejo de residuos ligeros en espacios pequeños como oficinas, baños y cocinas.', img:'images/Product39.jpg'},
+      {id:'p40', name:'BOLSA DE BASURA ROJA', category:'OTROS', desc:'Alta densidad, diseñada especialmente para la recoleccion segura de residuos especiales o riesgo.', img:'images/Product40.jpg'},
+      {id:'p41', name:'BOLSA DE BASURA 240 LITROS', category:'OTROS', desc:'Ideal para el manejo de residuos ligeros en espacios pequeños como oficinas, baños y cocinas.', img:'images/Product41.jpg'},
+      {id:'p42', name:'BOLSA DE BASURA 75 LITROS', category:'OTROS', desc:'Ideal para el maenjo de domesticos, comerciales o industriales. Fabricada con materiales duaraderos que evitan roturas y filtraciones.', img:'images/Product42.jpg'},
+      {id:'p43', name:'BURBUPACK', category:'OTROS', desc:'Medida_ 0.5m, 1, 1.5m. Rollos de 80m y 100m.', img:'images/Product43.jpg'},
+      {id:'p44', name:'BOTAS DE SEGURIDAD', category:'EPP',  desc:'Punta de acero, dielectricos, botines de PVC y Caucho', img:'images/Product44.png'},
+      {id:'p45', name:'TAPON Y PROTECTOR DE OIDO', category:'EPP', desc:'Tapones de oido con cordon, protector de oido tipo orejera', img:'images/Product45.png'},
+      {id:'p46', name:'CASCO DE SEGURIDAD', category:'EPP', desc:'Tafiletes para casco', img:'images/Product46.png'},
+      {id:'p47', name:'ANTEOJOS DE SEGURIDAD', category:'EPP', desc:'Luna clara, luna oscura y sobremedida', img:'images/Product47.png'},
+      {id:'p48', name:'RESPIRADORES', category:'EPP', desc:'Respiradores de doble entrada y filtros de polvo y gas', img:'images/Product48.png'},
+      {id:'p49', name:'GUANTES', category:'EPP', desc:'Guantes de anticorte y badana', img:'images/Product49.png'},
+      {id:'p50', name:'POLOS Y PANTALONES', category:'EPP', desc:'Pantalones en drill, jean, denim. Polos manga larga y corta. Polos picket con logo de empresa', img:'images/Product50.png'},
+      {id:'p51', name:'CHALECOS, CASACAS, MANDIL', category:'EPP', desc:'Chalecos en diferentes colores. Casacas y chompas. Casacas, pantalones y abrigos en PVC.', img:'images/Product51.png'}
     ];
     
 
@@ -517,21 +524,43 @@
       const root = document.getElementById('productsGrid');
       root.innerHTML = '';
     
-      list.forEach(p=>{
-        const card = document.createElement('div');
-        card.className = 'card';
+      const grouped = {};
     
-        card.innerHTML = `
-          <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x300?text=Sin+imagen'">
-          <h3>${p.name}</h3>
-          <p>${p.desc || ''}</p>
-          <div style="text-align:right">
-            <button onclick="cotizarWhatsApp('${p.name}')">Cotizar</button>
-          </div>
-        `;
-    
-        root.appendChild(card);
+      list.forEach(p => {
+        if(!grouped[p.category]){
+          grouped[p.category] = [];
+        }
+        grouped[p.category].push(p);
       });
+    
+      for(const category in grouped){
+    
+        // TÍTULO
+        const title = document.createElement('h2');
+        title.textContent = category;
+        title.style.margin = '20px 0 10px';
+        root.appendChild(title);
+    
+        // GRID
+        const grid = document.createElement('div');
+        grid.className = 'grid';
+    
+        grouped[category].forEach(p => {
+          const card = document.createElement('div');
+          card.className = 'card';
+    
+          card.innerHTML = `
+            <img src="${p.img}" alt="${p.name}">
+            <h3>${p.name}</h3>
+            <p>${p.desc}</p>
+            <button onclick="cotizarWhatsApp('${p.name}')">Cotizar</button>
+          `;
+    
+          grid.appendChild(card);
+        });
+    
+        root.appendChild(grid);
+      }
     }
     
     function filterProducts(){
@@ -638,6 +667,38 @@
       });
     }
 
+    function initCategories(){
+      const select = document.getElementById('categoryFilter');
+    
+      const categories = [...new Set(products.map(p => p.category))];
+    
+      categories.forEach(cat => {
+        const opt = document.createElement('option');
+        opt.value = cat;
+        opt.textContent = cat;
+        select.appendChild(opt);
+      });
+    }
+
+    function filterAll(){
+      const cat = document.getElementById('categoryFilter').value;
+      const text = document.getElementById('searchInput').value.toLowerCase();
+    
+      let filtered = products;
+    
+      if(cat !== 'ALL'){
+        filtered = filtered.filter(p => p.category === cat);
+      }
+    
+      if(text){
+        filtered = filtered.filter(p => 
+          p.name.toLowerCase().includes(text)
+        );
+      }
+    
+      renderProducts(filtered);
+    }
+
     
     /* INICIO */
     document.addEventListener('DOMContentLoaded', () => {
@@ -645,10 +706,12 @@
       showTab('about');
       showSub('quienes');
     });
-    document.addEventListener('click', (e) => {
-      if(!document.getElementById('searchInput').contains(e.target)){
-        document.getElementById('suggestions').style.display = 'none';
-      }
+    document.addEventListener('DOMContentLoaded', () => {
+      initCategories();
+      renderProducts(products);
+    
+      showTab('about');
+      showSub('quienes');
     });
   </script>
 </body>
